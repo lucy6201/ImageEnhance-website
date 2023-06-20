@@ -69,4 +69,23 @@
 
 - #### 이미지 업로드 ####
   - 모든 입력 이미지는 현재 시각으로 구분하여 서버에 저장됩니다.
-  - 
+    ex) DB/Enhancement_DB/Adobe5k_480p_train_test/web_input/2023-06-20T15_34_34.917420.jpg
+    
+- #### 모델 선택 ####
+  - 입력 이미지의 히스토그램을 파악한 뒤, 기준치에 따라 이미지가 저장될 파일 경로가 결정됩니다.
+
+    histogram = cv2.calcHist([image], [0], None, [256], [0, 256])
+
+    total_pixels = image.shape[0] * image.shape[1]
+
+    dark_pixel_count = sum(histogram[:128])
+
+  - Streamlit의 SELECT BOX에서 사용하고 싶은 모델을 선택합니다.
+
+    "Recommended Model" = 히스토그램에 따라 서버에서 결정한 모델
+
+    "Another Model" = 결정되지 않은 나머지 모델
+
+
+    
+    
