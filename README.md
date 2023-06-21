@@ -1,8 +1,6 @@
 # ImageEnhance-website
 영상 화질 개선 모델 + 웹 사이트
-
-![Uploading image.png…]()
-
+![캡처](https://github.com/lucy6201/ImageEnhance-website/assets/64131255/9469b253-2d6d-4b81-b496-ba4734b657f1)
 
 
 ## 프로젝트 소개
@@ -34,6 +32,10 @@
    (기본값은 "Recommended Model"로 설정되어 있습니다.)
 
 
+![그림1](https://github.com/lucy6201/ImageEnhance-website/assets/64131255/b4355d65-f425-4c29-97fc-9e5fac912809)
+
+  **위 사진은 일반적인 사진으로, Adobe-Fivek dataset과 더 유사하여 "Recommended Model"로 해당 모델을 실행합니다.**
+
 ---
 
 
@@ -64,21 +66,30 @@
 
 
 ### 2. 웹 사이트 ###
-- Streamlit 코드: project_test/streamlit/main.py
-- FastAPI 코드: project_test/fast_api_main.py
+- Streamlit 파일 경로: project_test/streamlit/main.py
+- FastAPI 파일 경로: project_test/fast_api_main.py
 
 - #### 이미지 업로드 ####
   - 모든 입력 이미지는 현재 시각으로 구분하여 서버에 저장됩니다.
+
     ex) DB/Enhancement_DB/Adobe5k_480p_train_test/web_input/2023-06-20T15_34_34.917420.jpg
+
+    ![image](https://github.com/lucy6201/ImageEnhance-website/assets/64131255/7855429e-167d-4789-898f-da28a6b6fff7)
+
     
 - #### 모델 선택 ####
   - 입력 이미지의 히스토그램을 파악한 뒤, 기준치에 따라 이미지가 저장될 파일 경로가 결정됩니다.
+ 
+    ![image](https://github.com/lucy6201/ImageEnhance-website/assets/64131255/4d3a985d-0e05-4998-ab58-f2eb663ee2f5)
+    ![image](https://github.com/lucy6201/ImageEnhance-website/assets/64131255/ba138a9d-8067-4fdc-b7ab-b496dde3f812)
 
-    histogram = cv2.calcHist([image], [0], None, [256], [0, 256])
 
-    total_pixels = image.shape[0] * image.shape[1]
+        histogram = cv2.calcHist([image], [0], None, [256], [0, 256])
 
-    dark_pixel_count = sum(histogram[:128])
+        total_pixels = image.shape[0] * image.shape[1]
+
+        dark_pixel_count = sum(histogram[:128])
+    
 
   - Streamlit의 SELECT BOX에서 사용하고 싶은 모델을 선택합니다.
 
@@ -86,6 +97,16 @@
 
     "Another Model" = 결정되지 않은 나머지 모델
 
+    ![image](https://github.com/lucy6201/ImageEnhance-website/assets/64131255/651dfa67-0ffa-458d-afdc-ecd0c4573da4)
+    ![image](https://github.com/lucy6201/ImageEnhance-website/assets/64131255/d314c45a-aeb9-42b2-a70e-0129bb932267)
+
+
+
+
+### 프로그램 실행 코드 ###
+- Streamlit 실행코드 : streamlit run main.py
+- FastAPI 실행코드: uvicorn fast_api_main:app --reload --host=210.117.181.239 
+- 웹 사이트 url: http://210.117.181.239:8501/
 
     
     
